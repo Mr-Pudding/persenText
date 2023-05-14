@@ -1,0 +1,21 @@
+{
+    "include": ["./DemoOne/Text.ts"],//用来指定哪些ts文件需要编译
+    "exclude": [],//
+    "extends":[],
+    "files": [],
+    "compilerOptions": {
+        // "target": "ES6",
+        // // "module": "CommonJS",
+        // "lib": [],
+        // "outDir": "",
+        // // "outFile": "",
+        // "allowJs": false,//是否对js文件进行处理编译到编译后的js文件所在的目录
+        // "checkJs": false,//检查js代码是不是符合语法规范
+        // "removeComments": false,//是否移除编译后ts到js的注释
+        // "noEmit": false,//不生成编译后的js文件
+        // "noEmitOnError": false,//当有错误的时候不生成js文件
+        // "alwaysStrict": false,//use strict模式
+        // "noImplicitAny": false,//不允许隐式any的出现
+        // "noImplicitThis": false,//不允许不明确的this
+    }
+}
