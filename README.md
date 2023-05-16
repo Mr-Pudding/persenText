@@ -241,3 +241,256 @@ npm install https://registry.npmmirror.com/core-js/-/core-js-3.30.2.tgz    (这�
 ```
 
 ## class(类)
+//类(对象)中主要有属性和方法
+class Person {
+    //注:name和age都是实例属性,只有new了后在对象身上打印出来
+    name: string = 'hhs'
+    //有一个属性叫name,值为hhs
+    static age: number = 18
+
+    readonly sex: string = 'falme'//readonly只读
+
+    sayHello(){
+        console.log("hello")
+    }
+
+    static sayHelloTwo(){
+        console.log('helloTwo')
+    }
+}
+
+const per = new Person()
+
+console.log(Person.age)//类(静态)属性,static修饰
+
+per.name = 'yancun'
+
+per.sayHello()
+
+Person.sayHelloTwo()//类(静态)属性,static修饰
+
+console.log(per);
+
+
+class cat{
+    name:string;//定义属性
+    age:number;
+    constructor(name:string,age:number){
+         
+        this.name=name
+        this.age=age
+   
+        // console.log(this)//constructor中this指的是当前实例对象 eg:nannan
+    }//constructor构造函数,只要new了一个实例对象就会自动调用constructor方法
+
+    bark(){
+        console.log(this.name)
+    }
+}
+
+let  nannan=new cat('nannan',2)
+
+let xiaoheizi=new cat('xiaoheizi',21)
+
+nannan.bark()
+
+console.log(xiaoheizi)
+
+
+(function(){
+    class Animal{
+        name:string;
+        age:Number;
+    
+        constructor(dogName:string,dogAge:number){
+            this.name=dogName
+            this.age=dogAge
+        }
+    
+        AnimalBark(){
+            console.log('animal要吃吃')
+        }
+    }
+
+//此时Animal被称为父类,Dog和catTwo继承了Animal的所有的属性和方法
+    class Dog extends Animal{
+        run(){
+            console.log(`狗狗${this.name}在跑`)
+        }
+    }//子类也可以增加父类没有的方法和属性，直接增加就行
+    
+    class catTwo extends Animal{
+           bark(){
+             console.log(`猫猫${this.name}在叫`)
+           }
+    }
+    
+    let hhs =new Dog('何厚胜',21)
+    let nannan=new catTwo('nannan',2)    
+    
+
+    hhs.run()
+    nannan.bark()
+    
+    hhs.AnimalBark()
+    nannan.AnimalBark()
+})();
+
+
+(function () {
+    abstract class Animal {//abstract是一个抽象类的修饰词，被abstract修饰的类不能被实例化,只能当爸爸，被其他子类继承
+        name: string;//定义属性
+        constructor(name: string) {
+            this.name = name
+        }
+
+        // bark() {
+        //     console.log("Animal在叫")
+        // }
+
+        //abstract的类中可以增加定义抽象方法，并且子类!!!必须!!!!对这个方法进行重写，不重写就直接报错
+        abstract bark() :void
+        
+    }
+
+    class Cat extends Animal {
+        // bark(): void {
+        //     super.bark()
+        // }
+        age: number
+
+        constructor(age: number, name: string) {
+            super(name)//super是父类的调用
+            this.age = age
+        }
+
+        bark(): void {
+            console.log("喵喵喵")
+        }
+
+    }
+
+    let nannan = new Cat(21, "nannan")
+})()
+
+(function () {
+    class person {
+        private _name: string;
+        private _age: number;//private私有属性，只能在类内部访问
+
+        constructor(name: string, age: number) {
+            this._name = name
+            this._age = age
+        }
+
+
+        //js实现get,set获取修改属性
+        // getName(){//闭包
+        //     return this.name
+        // }
+        // setName(value:string){
+        //     //函数内部可以做一些判断
+        //     this.name=value
+        // }
+
+        //ts中可以用get,set
+        get personName() {
+            return this._name
+        }
+        
+        set personName(value:string){
+            this._name=value
+        }
+
+    }
+
+
+
+
+    let hhs = new person("hhs", 21)
+    
+    //TS中Es6语法
+    hhs.personName="yancun"
+
+    console.log(hhs.personName)
+
+    // hhs.setName('yancun')
+
+    // console.log(hhs.getName())
+    // console.log(hhs.name)//属性“name”为私有属性，只能在类“person”中访问
+
+})()
+
+//protected受保护的属性，只能在当前类和子类中访问
+//public修饰的属性可以在任意位置访问
+
+(function () {
+    type myType = {
+        name: string,
+        age: number
+    }
+
+    interface hhsIntFece {
+        name: string,
+        age: number
+    }//interface关键词是用来定义接口的，定义一个类的属性和方法，同时接口也能当作type(类型声明)去使用
+    interface hhsIntFece {
+        sex: string
+    }
+    //1.接口可以重复声明,相当于是增加属性方法
+
+    //2.接口可以在定义类的时候去限制类的结构
+      //接口中的所有的属性值都不能有实际的值
+      //接口只定义对象的结构，而不考虑实际的值，与抽象类相似
+    interface myInterface{
+        name:string
+        sayhello():void
+    }
+    3.//extends是继承,implement是实现接口
+    
+    //实现接口
+    class TestClas implements myInterface{
+        name:string
+
+        constructor(name:string){
+          this.name=name
+        }
+        sayhello(): void {
+            console.log("我是接口implement的实现")
+        }
+
+    }
+
+    
+
+
+
+    const obj: myType = {
+        name: 'hhs',
+        age: 21
+    }
+
+    const obj2: hhsIntFece = {
+        name: 'hhs2',
+        age: 21,
+        sex: "female"
+    }
+
+})()
+
+function generics(target:any):any{
+    return target
+}//表示返回的和参数都是any类型,但是any类型可以表示为任意any!=any
+//此时需要用泛型来表示参数和返回值一样的
+
+
+function fn<H>(target:H):H{
+    return target
+}
+
+//1.
+fn(10)//不指定类型，ts直接对类型进行判断
+
+//2.
+fn<string>('hello')//指定类型
+
